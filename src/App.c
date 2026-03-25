@@ -120,12 +120,12 @@ float getAccelerationX()
     int32_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
     int32_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
 
-    printf("X0 %i\n", x0);
-    printf("X1 %i\n", x1);
+    //printf("X0 %i\n", x0);
+    //printf("X1 %i\n", x1);
 
     int32_t x16 = x0 | (x1 << 8);
 
-    printf("X16 %i\n", x1);
+    //printf("X16 %i\n", x1);
 
     return ((float)x16 / (float)pow(2, 15));
 }
@@ -144,7 +144,12 @@ int32_t main()
         {
             printf("%s\n", "recording...");
 
-            printf("X acceleration: %.3f\n", getAccelerationX());
+            for(uint16_t i = 0; i = 100; i++)
+            {
+                printf("X acceleration: %.3f\n", getAccelerationX());
+
+                usleep(100 * 1000);
+            }
         }
         else if(!strcmp(command, "stop-recording"))
         {
