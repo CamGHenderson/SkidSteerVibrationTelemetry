@@ -162,7 +162,7 @@ float printAccelerationData()
     printf("X0 %i, ", data[0]);
     printf("X1 %i \n ", data[1]);
 
-    uint16_t x16 = data[0] | data[1] << 8;
+    int16_t x16 = data[0] | data[1] << 8;
     printf("X16 %i\n", x16);
 
     float xa = ((float)x16);  
