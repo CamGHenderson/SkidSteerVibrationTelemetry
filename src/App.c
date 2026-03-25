@@ -117,13 +117,13 @@ void terminate()
 
 float getAccelerationX()
 {
-    int8_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
-    int8_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
+    int16_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
+    int16_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
 
     printf("X0 %i\n", x0);
     printf("X1 %i\n", x1);
 
-    int16_t x16 = x0 | x1 << 8;
+    int16_t x16 = x0 | (x1 << 8);
 
     printf("X16 %i\n", x1);
 
