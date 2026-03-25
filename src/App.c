@@ -12,14 +12,7 @@
 void printConnectedI2CDevices()
 {
     printf("%s\n", "Commencing I2C Search...");
-    for(int8_t i = 0; i < 127; i++)
-    {
-        if(i2cOpen(I2C_BUS, i, 0) >= 0)
-        {
-            printf("%s %i\n", "I2C Device at Address: ", i);
-        }
-    }
-
+    system("i2cdetect -y 1");
     printf("%s\n", "I2C Search Complete.");
 }
 
@@ -32,8 +25,6 @@ void initialize()
         exit(-1);
     }                                                                                    
     
-    printConnectedI2CDevices();
-
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
 
