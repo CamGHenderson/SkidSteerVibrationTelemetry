@@ -20,7 +20,7 @@
 #define DATAZ0 0x36
 #define DATAZ1 0x37
 
-int8_t adxl375I2CAddresses[2] = { 53, 29 };
+int8_t adxl375I2CAddresses[2] = { 52, 29 };
 int32_t adxlI2CHandles[2] = { 0, 0 };
 
 typedef struct
