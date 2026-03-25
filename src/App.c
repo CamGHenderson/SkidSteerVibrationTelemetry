@@ -112,9 +112,17 @@ void terminate()
     printf("%s\n", "Telemetry Program Terminated.");
 }
 
-float getXAcceleration()
+float getAccelerationX()
 {
+    int8_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
+    int8_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
+    int16_t x16 = (x1 << 8 | x0[0]);
+    if (x & (1 << 15))
+    {
+        x = x - (1 << 16);
+    }
 
+    return (float)(x / (2^15)) * 16.0f * 9.81f;
 }
 
 int32_t main()
@@ -129,6 +137,8 @@ int32_t main()
         if(!strcmp(command, "record"))
         {
             printf("%s\n", "recording...");
+
+            getAccelerationX();
         }
         else if(!strcmp(command, "stop-recording"))
         {
