@@ -65,8 +65,10 @@ void initializeADXL375()
         i2cWriteByteData(handle, BW_RATE, 8);
 
         uint8_t bwRateData = i2cReadByteData(handle, BW_RATE);
+        printf("%i -> ", bwRateData);
+        
         printBits(bwRateData);
-
+        printf("\n");
     }
 }
 
