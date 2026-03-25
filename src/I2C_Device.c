@@ -1,5 +1,8 @@
 #include "I2C_Device.h"
 
+#include <stdlib.h>
+#include <stdio.h>
+
 void printConnectedI2CDevices()
 {
     printf("%s\n", "Commencing I2C Search...");
