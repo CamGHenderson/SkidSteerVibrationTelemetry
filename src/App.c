@@ -32,11 +32,12 @@ typedef struct
 
 void printBits(uint8_t num)
 {
-   for(int bit = 0; bit < (sizeof(uint8_t) * 8); bit++)
-   {
-      printf("%i ", num & 0x01);
-      num = num >> 1;
-   }
+    uint16_t maxPow = 1 << (8 - 1);
+    for(int bit = 0; bit < 8; bit++)
+    {
+        printf("%u ", num & maxPow ? 1 : 0);
+        num = num << 1;
+    }
 }
 
 void printConnectedI2CDevices()
