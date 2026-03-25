@@ -134,7 +134,7 @@ float getAccelerationX()
     printf("Z0 %i, ", data[4]);
     printf("Z1 %i\n", data[5]);
 
-    return (float)x16;
+    return 0.0f;
 }
 
 int32_t main()
