@@ -25,6 +25,8 @@ void initialize()
         exit(-1);
     }                                                                                    
     
+    printConnectedI2CDevices();
+
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
 
