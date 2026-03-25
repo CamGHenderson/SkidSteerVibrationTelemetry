@@ -7,13 +7,14 @@
 #include <unistd.h>
 
 #define INDICATOR_LED 18
+#define I2C_BUS 1
 
 void printConnectedI2CDevices()
 {
     printf("%s\n", "Commencing I2C Search...");
     for(int8_t i = 0; i < 127; i++)
     {
-        if(i2cOpen(i, 0) >= 0)
+        if(i2cOpen(I2C_BUS, i, 0) >= 0)
         {
             printf("%s %i\n", "I2C Device at Address: ", i);
         }
