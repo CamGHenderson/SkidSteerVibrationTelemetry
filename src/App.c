@@ -129,6 +129,8 @@ float getAccelerationX()
         x16 = x16 - (1 << 16);
     }
 
+    printf("X16 %i\n", x1);
+
     return (float)(x16 / pow(2, 15)) * 16.0f * 9.81f;
 }
 
