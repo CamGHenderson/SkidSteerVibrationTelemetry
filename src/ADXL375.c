@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <pigpio.h>
+#include <stdio.h>
 
 #include "I2C_Device.h"
 
@@ -71,6 +72,16 @@ void terminateADXL375()
         i2cClose(adxlI2CHandles[i]);
 
         printf("%s\n", "adxl375 in sleep mode.");
+    }
+}
+
+void printBits(uint8_t num)
+{
+    uint16_t maxPow = 1 << (8 - 1);
+    for(int bit = 0; bit < 8; bit++)
+    {
+        printf("%u ", num & maxPow ? 1 : 0);
+        num = num << 1;
     }
 }
 

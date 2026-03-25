@@ -8,18 +8,9 @@
 #include <unistd.h>
 
 #include "ADXL375.h"
+#include "I2C_Device.h"
 
 #define INDICATOR_LED 18
-
-void printBits(uint8_t num)
-{
-    uint16_t maxPow = 1 << (8 - 1);
-    for(int bit = 0; bit < 8; bit++)
-    {
-        printf("%u ", num & maxPow ? 1 : 0);
-        num = num << 1;
-    }
-}
 
 void initializeMPU6050()
 {
