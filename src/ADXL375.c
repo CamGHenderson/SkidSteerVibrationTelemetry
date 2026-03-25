@@ -28,6 +28,16 @@
 int8_t adxl375I2CAddresses[2] = { 0x53, 0x29 };
 int32_t adxlI2CHandles[2] = { 0, 0 };
 
+void printBits(uint8_t num)
+{
+    uint16_t maxPow = 1 << (8 - 1);
+    for(int bit = 0; bit < 8; bit++)
+    {
+        printf("%u ", num & maxPow ? 1 : 0);
+        num = num << 1;
+    }
+}
+
 void initializeADXL375()
 {
     for(uint16_t i = 0; i < 1; i++)
@@ -72,16 +82,6 @@ void terminateADXL375()
         i2cClose(adxlI2CHandles[i]);
 
         printf("%s\n", "adxl375 in sleep mode.");
-    }
-}
-
-void printBits(uint8_t num)
-{
-    uint16_t maxPow = 1 << (8 - 1);
-    for(int bit = 0; bit < 8; bit++)
-    {
-        printf("%u ", num & maxPow ? 1 : 0);
-        num = num << 1;
     }
 }
 
