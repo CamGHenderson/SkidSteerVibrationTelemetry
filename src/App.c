@@ -139,7 +139,7 @@ int32_t main()
         {
             printf("%s\n", "recording...");
 
-            getAccelerationX();
+            printf("X acceleration: %.3f\n", getAccelerationX());
         }
         else if(!strcmp(command, "stop-recording"))
         {
