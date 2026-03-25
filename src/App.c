@@ -30,6 +30,15 @@ typedef struct
 
 } I2C_Device;
 
+void printBits(uint8_t num)
+{
+   for(int bit = 0; bit < (sizeof(uint8_t) * 8); bit++)
+   {
+      printf("%i ", num & 0x01);
+      num = num >> 1;
+   }
+}
+
 void printConnectedI2CDevices()
 {
     printf("%s\n", "Commencing I2C Search...");
@@ -52,8 +61,12 @@ void initializeADXL375()
         // turn off sleep mode for adxl
         i2cWriteByteData(handle, POWER_CTL, 0x08);
 
-        // set sample rate to 3200hz
-        //i2cWriteByteData(handle, BW_RATE, 10);
+        // set sample rate to 25hz
+        i2cWriteByteData(handle, BW_RATE, 8);
+
+        uint8_t bwRateData = i2cReadByte(handle, BW_RATE);
+        printBits(bwRateData);
+
     }
 }
 
@@ -113,15 +126,6 @@ void terminate()
     gpioWrite(INDICATOR_LED, 0);
     gpioTerminate();
     printf("%s\n", "Telemetry Program Terminated.");
-}
-
-void printBits(uint8_t num)
-{
-   for(int bit = 0; bit < (sizeof(uint8_t) * 8); bit++)
-   {
-      printf("%i ", num & 0x01);
-      num = num >> 1;
-   }
 }
 
 float printAccelerationData()
