@@ -53,7 +53,7 @@ void initializeADXL375()
         i2cWriteByteData(handle, POWER_CTL, 0x08);
 
         // set sample rate to 3200hz
-        i2cWriteByteData(handle, BW_RATE, 0x0D);
+        i2cWriteByteData(handle, BW_RATE, 10);
     }
 }
 
