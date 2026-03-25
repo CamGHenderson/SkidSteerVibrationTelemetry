@@ -117,14 +117,22 @@ void terminate()
 
 float getAccelerationX()
 {
-    int32_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
-    int32_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
+    uint8_t data[6];
+    i2cReadBlockData(adxl375I2CAddresses[0], DATAX0, data);
 
-    printf("X0 %i, ", x0);
-    printf("X1 %i, ", x1);
+    printf("X0 %i, ", data[0]);
+    printf("X1 %i, ", data[1]);
 
-    int32_t x16 = x0 | (x1 << 8);
-    printf("X16 %i\n", x16);
+    //int32_t x16 = x0 | (x1 << 8);
+    //printf("X16 %i\n", x16);
+
+
+    printf("Y0 %i, ", data[2]);
+    printf("Y1 %i, ", data[3]);
+
+
+    printf("Z0 %i, ", data[4]);
+    printf("Z1 %i\n", data[5]);
 
     return (float)x16;
 }
