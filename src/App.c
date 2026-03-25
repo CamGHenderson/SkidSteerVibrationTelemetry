@@ -50,7 +50,7 @@ void initializeADXL375()
         adxl375I2CAddresses[i] = handle;
 
         // turn off sleep mode for adxl
-        //i2cWriteByteData(handle, POWER_CTL, 0x08);
+        i2cWriteByteData(handle, POWER_CTL, 0x08);
 
         // set sample rate to 3200hz
         //i2cWriteByteData(handle, BW_RATE, 10);
