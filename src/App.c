@@ -50,10 +50,10 @@ void initializeADXL375()
         adxl375I2CAddresses[i] = handle;
 
         // turn off sleep mode for adxl
-        i2cWriteByteData(handle, POWER_CTL, 0x08);
+        //i2cWriteByteData(handle, POWER_CTL, 0x08);
 
         // set sample rate to 3200hz
-        i2cWriteByteData(handle, BW_RATE, 10);
+        //i2cWriteByteData(handle, BW_RATE, 10);
     }
 }
 
@@ -115,7 +115,16 @@ void terminate()
     printf("%s\n", "Telemetry Program Terminated.");
 }
 
-float getAccelerationX()
+void printBits(uint8_t num)
+{
+   for(int bit = 0; bit < (sizeof(unsigned int) * 8); bit++)
+   {
+      printf("%i ", num & 0x01);
+      num = num >> 1;
+   }
+}
+
+float printAccelerationData()
 {
     uint8_t data[6];
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
@@ -123,16 +132,19 @@ float getAccelerationX()
     printf("X0 %i, ", data[0]);
     printf("X1 %i, ", data[1]);
 
+
+    printBits("%i %i\n ", data[1], data[0]);
+
+
     //int32_t x16 = x0 | (x1 << 8);
     //printf("X16 %i\n", x16);
 
+    //printf("Y0 %i, ", data[2]);
+    //printf("Y1 %i, ", data[3]);
 
-    printf("Y0 %i, ", data[2]);
-    printf("Y1 %i, ", data[3]);
 
-
-    printf("Z0 %i, ", data[4]);
-    printf("Z1 %i\n", data[5]);
+    //printf("Z0 %i, ", data[4]);
+    //printf("Z1 %i\n", data[5]);
 
     return 0.0f;
 }
@@ -154,7 +166,7 @@ int32_t main()
             for(uint16_t i = 0; i < 1000; i++)
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
-                getAccelerationX();
+                printAccelerationData();
                 usleep(100 * 1000);
             }
         }
