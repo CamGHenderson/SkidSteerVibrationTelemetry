@@ -72,7 +72,7 @@ void terminateADXL375()
     for(uint16_t i = 0; i < 1; i++)
     {
         // put adxl into sleep mode
-        i2cWriteByteData(handle, POWER_CTL, 0x04);
+        i2cWriteByteData(adxlI2CHandles[i], POWER_CTL, 0x04);
         i2cClose(adxlI2CHandles[i]);
     }
 }
