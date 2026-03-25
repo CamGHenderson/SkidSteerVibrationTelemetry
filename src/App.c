@@ -9,15 +9,15 @@
 #define INDICATOR_LED 18
 #define I2C_BUS 1
 
-#define POWER_CTL = 0x2D
-#define DATA_FORMAT = 0x31
-#define BW_RATE = 0x2C
-#define DATAX0 = 0x32
-#define DATAX1 = 0x33
-#define DATAY0 = 0x34
-#define DATAY1 = 0x35
-#define DATAZ0 = 0x36
-#define DATAZ1 = 0x37
+#define POWER_CTL 0x2D
+#define DATA_FORMAT 0x31
+#define BW_RATE 0x2C
+#define DATAX0 0x32
+#define DATAX1 0x33
+#define DATAY0 0x34
+#define DATAY1 0x35
+#define DATAZ0 0x36
+#define DATAZ1 0x37
 
 int8_t adxl375I2CAddresses[2] = { 53, 29 };
 int32_t adxlI2CHandles[2] = { 0, 0 };
@@ -73,7 +73,7 @@ void terminateADXL375()
     {
         // put adxl into sleep mode
         i2cWriteByteData(handle, POWER_CTL, 0x04);
-        i2cClose(adxlI2CHandles);
+        i2cClose(adxlI2CHandles[i]);
     }
 }
 
@@ -114,7 +114,7 @@ void terminate()
 
 float getXAcceleration()
 {
-    
+
 }
 
 int32_t main()
