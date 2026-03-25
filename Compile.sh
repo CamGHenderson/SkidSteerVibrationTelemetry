@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcc App.c -o App.out -lpigpio
+gcc src/App.c -o bin/App.out -lpigpio
