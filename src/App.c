@@ -118,7 +118,7 @@ void terminate()
 float getAccelerationX()
 {
     uint8_t data[6];
-    i2cReadBlockData(adxl375I2CAddresses[0], DATAX0, data);
+    i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
     printf("X0 %i, ", data[0]);
     printf("X1 %i, ", data[1]);
@@ -155,7 +155,7 @@ int32_t main()
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 getAccelerationX();
-                usleep(10 * 1000);
+                usleep(100 * 1000);
             }
         }
         else if(!strcmp(command, "stop-recording"))
