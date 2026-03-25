@@ -167,7 +167,7 @@ int32_t main()
         {
             printf("%s\n", "recording...");
 
-            for(uint16_t i = 0; i < 1000; i++)
+            for(uint16_t i = 0; i < 100; i++)
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 printAccelerationData();
