@@ -123,7 +123,7 @@ float getAccelerationX()
     //printf("X0 %i\n", x0);
     //printf("X1 %i\n", x1);
 
-    int32_t x16 = x0 | (x1 << 8);
+    int32_t x16 = (x0 << 8) | x1;
 
     //printf("X16 %i\n", x1);
 
