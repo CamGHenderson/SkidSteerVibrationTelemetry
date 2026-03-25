@@ -43,11 +43,11 @@ int32_t main()
 
         if(!strcmp(command, "record"))
         {
-            printf("recording...");
+            printf("%s\n", "recording...");
         }
         else if(!strcmp(command, "stop-recording"))
         {
-            printf("stoped recording.");
+            printf("%s\n", "stoped recording.");
         }
         else if(!strcmp(command, "exit"))
         {
