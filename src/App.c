@@ -117,6 +117,10 @@ float getAccelerationX()
 {
     int8_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
     int8_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
+
+    printf("X0 %i\n", x0);
+    printf("X1 %i\n", x1);
+
     int16_t x16 = (x1 << 8 | x0);
     if (x16 & (1 << 15))
     {
@@ -143,7 +147,7 @@ int32_t main()
         }
         else if(!strcmp(command, "stop-recording"))
         {
-            printf("%s\n", "stoped recording.");
+            printf("%s\n", "stopped recording.");
         }
         else if(!strcmp(command, "exit"))
         {
