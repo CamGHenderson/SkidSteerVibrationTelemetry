@@ -9,12 +9,7 @@
 
 #include "ADXL375.h"
 
-typedef struct
-{
-    int8_t address;
-    int32_t handle;
-
-} I2C_Device;
+#define INDICATOR_LED 18
 
 void printBits(uint8_t num)
 {
@@ -24,13 +19,6 @@ void printBits(uint8_t num)
         printf("%u ", num & maxPow ? 1 : 0);
         num = num << 1;
     }
-}
-
-void printConnectedI2CDevices()
-{
-    printf("%s\n", "Commencing I2C Search...");
-    system("i2cdetect -y 1");
-    printf("%s\n", "I2C Search Complete.");
 }
 
 void initializeMPU6050()

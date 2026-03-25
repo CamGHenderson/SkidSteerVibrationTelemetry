@@ -1,9 +1,9 @@
 #include "ADXL375.h"
-#include <stdint.h>>
+
+#include <stdint.h>
 #include <pigpio.h>
 
-#define INDICATOR_LED 18
-#define I2C_BUS 1
+#include "I2C_Device.h"
 
 #define ADXL375_MG2G_MULTIPLIER 0.049f
 
