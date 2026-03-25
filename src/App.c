@@ -133,10 +133,14 @@ float printAccelerationData()
     printf("X1 %i, ", data[1]);
 
 
-    printBits("%i %i\n ", data[1], data[0]);
+    printf("|");
+    printBits(data[1]);
+    printf(" ");
+    printBits(data[0]);
+    printf(" | \n");
 
 
-    //int32_t x16 = x0 | (x1 << 8);
+    //
     //printf("X16 %i\n", x16);
 
     //printf("Y0 %i, ", data[2]);
