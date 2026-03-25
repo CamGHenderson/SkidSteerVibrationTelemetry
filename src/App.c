@@ -10,6 +10,8 @@
 #define INDICATOR_LED 18
 #define I2C_BUS 1
 
+#define ADXL375_MG2G_MULTIPLIER 0.049f
+
 #define INT_ENABLE 0x2C
 #define THRESH_SHOCK 0x1D
 #define DUR 0x21
@@ -152,7 +154,6 @@ float printAccelerationData()
     uint8_t data[6];
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
-
     printf("|| ");
     printBits(data[1]);
     printf(" ");
@@ -160,12 +161,13 @@ float printAccelerationData()
     printf(" || ");
 
     printf("X0 %i, ", data[0]);
-    printf("X1 %i \n ", data[1]);
+    printf("X1 %i, ", data[1]);
 
     int16_t x16 = data[0] | data[1] << 8;
-    printf("X16 %i\n", x16);
+    //printf("X16 %i\n", x16);
 
-    float xa = ((float)x16);  
+    float xa = ((float)x16) * ADXL375_MG2G_MULTIPLIER;
+    printf("X acceleration(g's) %.3f\n", xa);
 
     //printf("Y0 %i, ", data[2]);
     //printf("Y1 %i, ", data[3]);
