@@ -8,6 +8,20 @@
 
 #define INDICATOR_LED 18
 
+void printConnectedI2CDevices()
+{
+    printf("%s\n", "Commencing I2C Search...");
+    for(int8_t i = 0; i < 127; i++)
+    {
+        if(i2cOpen(i, 0) >= 0)
+        {
+            printf("%s %i\n", "I2C Device at Address: ", i);
+        }
+    }
+
+    printf("%s\n", "I2C Search Complete.");
+}
+
 void initialize()
 {
     printf("%s\n", "Initializing Telemetry Program...");
@@ -17,10 +31,13 @@ void initialize()
         exit(-1);
     }                                                                                    
     
+    printConnectedI2CDevices();
+
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
 
-    printf("%s\n", "Telemetry Program on Standby...");
+    printf("%s\n", "Initialization Complete");
+    printf("%s\n", "Telemetry Program on Standby.");
 }
 
 void terminate()
@@ -29,7 +46,6 @@ void terminate()
     gpioWrite(INDICATOR_LED, 0);
     gpioTerminate();
     printf("%s\n", "Telemetry Program Terminated.");
-
 }
 
 int32_t main()
