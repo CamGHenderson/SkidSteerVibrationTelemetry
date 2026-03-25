@@ -123,11 +123,7 @@ float getAccelerationX()
     printf("X0 %i\n", x0);
     printf("X1 %i\n", x1);
 
-    int16_t x16 = (x1 << 8 | x0);
-    if (x16 & (1 << 15))
-    {
-        x16 = x16 - (1 << 16);
-    }
+    int16_t x16 = x0 | x1 << 8;
 
     printf("X16 %i\n", x1);
 
