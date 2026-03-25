@@ -75,6 +75,8 @@ void terminateADXL375()
         // put adxl into sleep mode
         i2cWriteByteData(adxlI2CHandles[i], POWER_CTL, 0x04);
         i2cClose(adxlI2CHandles[i]);
+
+        printf("%s\n", "adxl375 in sleep mode.");
     }
 }
 
@@ -137,6 +139,7 @@ int32_t main()
     while(true)
     {
         char command[50];
+        printf("\n>> ");
         scanf("%s", &command);
 
         if(!strcmp(command, "record"))
