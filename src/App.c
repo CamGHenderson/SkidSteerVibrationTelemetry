@@ -117,7 +117,7 @@ void terminate()
 
 void printBits(uint8_t num)
 {
-   for(int bit = 0; bit < (sizeof(unsigned int) * 8); bit++)
+   for(int bit = 0; bit < (sizeof(uint8_t) * 8); bit++)
    {
       printf("%i ", num & 0x01);
       num = num >> 1;
@@ -129,15 +129,15 @@ float printAccelerationData()
     uint8_t data[6];
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
-    printf("X0 %i, ", data[0]);
-    printf("X1 %i, ", data[1]);
-
 
     printf("|");
     printBits(data[1]);
     printf(" ");
     printBits(data[0]);
     printf(" | \n");
+
+    printf("X0 %i, ", data[0]);
+    printf("X1 %i, ", data[1]);
 
 
     //
