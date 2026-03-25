@@ -130,14 +130,14 @@ float printAccelerationData()
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
 
-    printf("|");
+    printf("|| ");
     printBits(data[1]);
     printf(" ");
     printBits(data[0]);
-    printf(" | \n");
+    printf(" || ");
 
     printf("X0 %i, ", data[0]);
-    printf("X1 %i, ", data[1]);
+    printf("X1 %i \n ", data[1]);
 
 
     //
