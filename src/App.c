@@ -9,11 +9,77 @@
 #define INDICATOR_LED 18
 #define I2C_BUS 1
 
+#define POWER_CTL = 0x2D
+#define DATA_FORMAT = 0x31
+#define BW_RATE = 0x2C
+#define DATAX0 = 0x32
+#define DATAX1 = 0x33
+#define DATAY0 = 0x34
+#define DATAY1 = 0x35
+#define DATAZ0 = 0x36
+#define DATAZ1 = 0x37
+
+int8_t adxl375I2CAddresses[2] = { 53, 29 };
+int32_t adxlI2CHandles[2] = { 0, 0 };
+
+typedef struct
+{
+    int8_t address;
+    int32_t handle;
+
+} I2C_Device;
+
 void printConnectedI2CDevices()
 {
     printf("%s\n", "Commencing I2C Search...");
     system("i2cdetect -y 1");
     printf("%s\n", "I2C Search Complete.");
+}
+
+void initializeADXL375()
+{
+    for(uint16_t i = 0; i < 1; i++)
+    {
+        int32_t handle = i2cOpen(I2C_BUS, adxl375I2CAddresses[i], 0);
+        if(handle >= 0)
+        {
+            printf("%s %i\n", "i2c opened on address: ", adxl375I2CAddresses[i]);
+        }
+
+        adxl375I2CAddresses[i] = handle;
+
+        // turn off sleep mode for adxl
+        i2cWriteByteData(handle, POWER_CTL, 0x08);
+
+        // set sample rate to 3200hz
+        i2cWriteByteData(handle, BW_RATE, 0x0F);
+    }
+}
+
+void initializeMPU6050()
+{
+
+}
+
+void initializeI2CDevices()
+{
+    initializeADXL375();
+    //initializeMPU6050();
+}
+
+void terminateADXL375()
+{
+    for(uint16_t i = 0; i < 1; i++)
+    {
+        // put adxl into sleep mode
+        i2cWriteByteData(handle, POWER_CTL, 0x04);
+        i2cClose(adxlI2CHandles);
+    }
+}
+
+void terminateI2CDevices()
+{
+    terminateADXL375();
 }
 
 void initialize()
@@ -26,6 +92,7 @@ void initialize()
     }                                                                                    
     
     printConnectedI2CDevices();
+    initializeADXL375();
 
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
@@ -37,9 +104,17 @@ void initialize()
 void terminate()
 {
     printf("%s\n", "Terminating Telemetry Program...");
+    
+    terminateI2CDevices();
+    
     gpioWrite(INDICATOR_LED, 0);
     gpioTerminate();
     printf("%s\n", "Telemetry Program Terminated.");
+}
+
+float getXAcceleration()
+{
+    
 }
 
 int32_t main()
