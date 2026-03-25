@@ -10,6 +10,13 @@
 #define INDICATOR_LED 18
 #define I2C_BUS 1
 
+#define INT_ENABLE 0x2C
+#define THRESH_SHOCK 0x1D
+#define DUR 0x21
+#define LATENT 0x22
+#define WINDOW 0x23
+#define SHOCK_AXES 0x2A
+
 #define POWER_CTL 0x2D
 #define DATA_FORMAT 0x31
 #define BW_RATE 0x2C
@@ -58,6 +65,15 @@ void initializeADXL375()
         }
 
         adxl375I2CAddresses[i] = handle;
+
+        // bullshit config from stolen adafruit library
+        i2cWriteByteData(handle, INT_ENABLE, 0);
+        i2cWriteByteData(handle, THRESH_SHOCK, 20);
+        i2cWriteByteData(handle, DUR, 50);
+        i2cWriteByteData(handle, LATENT, 0);
+        i2cWriteByteData(handle, WINDOW, 0);
+        i2cWriteByteData(handle, SHOCK_AXES, 0x7);
+        i2cWriteByteData(handle, DATA_FORMAT, 0b00001011);
 
         // turn off sleep mode for adxl
         i2cWriteByteData(handle, POWER_CTL, 0x08);
