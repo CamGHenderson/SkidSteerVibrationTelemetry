@@ -1,4 +1,6 @@
 #pragma once
+#include "Vector.h"
 
-void initializeADXL375();
-void terminateADXL375();
+void ADXL375_initialize();
+void ADXL375_terminate();
+Vec3f ADXL375_read();

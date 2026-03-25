@@ -38,7 +38,7 @@ void printBits(uint8_t num)
     }
 }
 
-void initializeADXL375()
+void ADXL375_initialize()
 {
     for(uint16_t i = 0; i < 1; i++)
     {
@@ -73,7 +73,7 @@ void initializeADXL375()
     }
 }
 
-void terminateADXL375()
+void ADXL375_terminate()
 {
     for(uint16_t i = 0; i < 1; i++)
     {
@@ -85,19 +85,15 @@ void terminateADXL375()
     }
 }
 
-float printAccelerationData()
+Vec3f ADXL375_read()
 {
     uint8_t data[6];
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
-    float xa = ((float)(data[0] | data[1] << 8)) * ADXL375_MG2G_MULTIPLIER;
-    printf("X acceleration(g's) %.3f\n", xa);
 
-    //printf("Y0 %i, ", data[2]);
-    //printf("Y1 %i, ", data[3]);
-
-
-    //printf("Z0 %i, ", data[4]);
-    //printf("Z1 %i\n", data[5]);
-
-    return 0.0f;
+    Vec3f v;
+    v.x = ((float)(data[0] | data[1] << 8)) * ADXL375_MG2G_MULTIPLIER;
+    v.y = ((float)(data[2] | data[3] << 8)) * ADXL375_MG2G_MULTIPLIER;
+    v.z = ((float)(data[4] | data[5] << 8)) * ADXL375_MG2G_MULTIPLIER;
+ 
+    return v;
 }

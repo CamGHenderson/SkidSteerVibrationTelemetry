@@ -6,6 +6,7 @@
 #include <string.h>
 #include <pigpio.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "ADXL375.h"
 #include "I2C_Device.h"
@@ -17,15 +18,15 @@ void initializeMPU6050()
 
 }
 
-void initializeI2CDevices()
+void initializeDevices()
 {
-    initializeADXL375();
+    ADXL375_initialize();
     //initializeMPU6050();
 }
 
-void terminateI2CDevices()
+void terminateDevices()
 {
-    terminateADXL375();
+    ADXL375_terminate();
 }
 
 void initialize()
@@ -38,7 +39,7 @@ void initialize()
     }                                                                                    
     
     printConnectedI2CDevices();
-    initializeADXL375();
+    initializeDevices();
 
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
@@ -51,7 +52,7 @@ void terminate()
 {
     printf("%s\n", "Terminating Telemetry Program...");
     
-    terminateI2CDevices();
+    terminateDevices();
     
     gpioWrite(INDICATOR_LED, 0);
     gpioTerminate();
@@ -76,6 +77,10 @@ int32_t main()
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
+                Vec3f v = ADXL375_read();
+
+
+
                 usleep(100 * 1000);
             }
         }
@@ -86,6 +91,10 @@ int32_t main()
         else if(!strcmp(command, "exit"))
         {
             break;
+        }
+        else
+        {
+            printf("%s\n", "unknown command try again.");
         }
     }
     
