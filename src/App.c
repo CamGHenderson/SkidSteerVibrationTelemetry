@@ -53,7 +53,7 @@ void initializeADXL375()
         i2cWriteByteData(handle, POWER_CTL, 0x08);
 
         // set sample rate to 3200hz
-        i2cWriteByteData(handle, BW_RATE, 0x0F);
+        i2cWriteByteData(handle, BW_RATE, 0x0D);
     }
 }
 
@@ -144,11 +144,10 @@ int32_t main()
         {
             printf("%s\n", "recording...");
 
-            for(uint16_t i = 0; i = 100; i++)
+            for(uint16_t i = 0; i < 1000; i++)
             {
                 printf("X acceleration: %.3f\n", getAccelerationX());
-
-                usleep(100 * 1000);
+                usleep(10 * 1000);
             }
         }
         else if(!strcmp(command, "stop-recording"))
