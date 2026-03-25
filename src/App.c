@@ -120,12 +120,11 @@ float getAccelerationX()
     int32_t x0 = i2cReadByteData(adxlI2CHandles[0], DATAX0);
     int32_t x1 = i2cReadByteData(adxlI2CHandles[0], DATAX1);
 
-    //printf("X0 %i\n", x0);
-    //printf("X1 %i\n", x1);
+    printf("X0 %i, ", x0);
+    printf("X1 %i, ", x1);
 
-    int32_t x16 = (x0 << 8) | x1;
-
-    //printf("X16 %i\n", x1);
+    int32_t x16 = x0 | (x1 << 8);
+    printf("X16 %i\n", x16);
 
     return (float)x16;
 }
@@ -146,7 +145,8 @@ int32_t main()
 
             for(uint16_t i = 0; i < 1000; i++)
             {
-                printf("X acceleration: %.3f\n", getAccelerationX());
+                //printf("X acceleration: %.3f\n", getAccelerationX());
+                getAccelerationX();
                 usleep(10 * 1000);
             }
         }
