@@ -119,13 +119,13 @@ int32_t main()
 
                 printf("X: %.3f, Y: %.3f, Z: %.3f\n", v.x, v.y, v.z);
                 
-                //addData();
+                addData(dp);
                 usleep(100 * 1000);
             }
 
             for(uint16_t i = 0; i < length; i++)
             {
-                printf("X: %.3f, Y: %.3f, Z: %.3f\n", data[i].x, data[i].y, data[i].z);
+                //printf("X: %.3f, Y: %.3f, Z: %.3f\n", data[i].x, data[i].y, data[i].z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
