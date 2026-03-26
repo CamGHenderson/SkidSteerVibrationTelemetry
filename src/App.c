@@ -138,7 +138,7 @@ int32_t main()
 
                 addData(dp);
 
-                usleep(312);
+                usleep(10);
             }
 
             for(uint16_t i = 0; i < length; i++)

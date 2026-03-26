@@ -60,7 +60,7 @@ void ADXL375_initialize()
         i2cWriteByteData(handle, DATA_FORMAT, 0b00001011);
 
         // turn off sleep mode for adxl
-        i2cWriteByteData(handle, POWER_CTL, 0x08);
+        i2cWriteByteData(handle, POWER_CTL, 15);
 
         // set sample rate to 800hz
         i2cWriteByteData(handle, BW_RATE, 14);
