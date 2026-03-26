@@ -120,10 +120,10 @@ int32_t main()
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
-                //Vec3f v = ADXL375_read();
+                Vec3f v = ADXL375_read();
 
                 DataPoint dp;
-                //dp.accelerationValue = v;
+                dp.accelerationValue = v;
                 dp.time = getTime();
 
                 /*float delta = 0.0f;
