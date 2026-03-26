@@ -4,8 +4,9 @@
 #include <math.h>
 #include <stdbool.h>
 #include <string.h>
-#include <pigpio.h>
 #include <unistd.h>
+#include <time.h>
+#include <pigpio.h>
 
 #include "ADXL375.h"
 #include "I2C_Device.h"
@@ -13,14 +14,35 @@
 
 #define INDICATOR_LED 18
 
-Vec3f* data = NULL;
+typedef struct
+{
+    Vec3f accelerationValue;
+    float time;
+} DataPoint;
+
+DataPoint* data = NULL;
 uint32_t length = 0;
 
-void addData(Vec3f v)
+float initializationTime = 0.0f;
+
+float getTime()
+{
+    struct timespec tms;
+    timespec_get(&tms, TIME_UTC)
+    int64_t currentTimeMicro = tms.tv_sec * pow(10, 6);
+    return ((float)(currentTimeMicro) / (float)(pow(10, 6))) - initializationTime;
+}
+
+void addData(DataPoint v)
 {
     length++;
-    data = realloc(data, sizeof(Vec3f) * length);
+    data = realloc(data, sizeof(DataPoint) * length);
     data[length - 1] = v;
+}
+
+void clearData()
+{
+
 }
 
 void initializeMPU6050()
@@ -53,6 +75,8 @@ void initialize()
 
     gpioSetMode(INDICATOR_LED, PI_OUTPUT);
     gpioWrite(INDICATOR_LED, 1);
+
+    initializationTime = getTime();
 
     printf("%s\n", "Initialization Complete");
     printf("%s\n", "Telemetry Program on Standby.");
@@ -88,6 +112,10 @@ int32_t main()
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
                 Vec3f v = ADXL375_read();
+
+                DataPoint dp;
+                dp.accelerationValue = v;
+                dp.time = getTime();
 
                 printf("X: %.3f, Y: %.3f, Z: %.3f\n", v.x, v.y, v.z);
                 
