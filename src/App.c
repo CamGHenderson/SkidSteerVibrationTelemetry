@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <pthread.h>
 #include <pigpio.h>
 
 #include "ADXL375.h"
@@ -20,10 +21,15 @@ typedef struct
     float time;
 } DataPoint;
 
+pthread_t recordingThread;
+
 DataPoint* data;
 uint32_t length = 0;
+bool recording = false;
+char workingFileName[50];
 
 float initializationTime = 0.0f;
+float recordStartTime;
 
 float getTime()
 {
@@ -104,6 +110,24 @@ void terminate()
     printf("%s\n", "Telemetry Program Terminated.");
 }
 
+void* record()
+{
+    recordStartTime = getTime();
+    recording = true;
+    while(recording)
+    {
+        Vec3f v = ADXL375_read();
+
+        DataPoint dp;
+        dp.accelerationValue = v;
+        dp.time = getTime();
+
+        addData(dp);
+    } 
+
+    pthread_exit(NULL);
+}
+
 int32_t main()
 {
     initialize();
@@ -116,43 +140,39 @@ int32_t main()
 
         if(!strcmp(command, "record"))
         {
-            printf("%s\n", "recording...");
-
-            for(uint16_t i = 0; i < 1000; i++)
+            if(!recording)
             {
-                Vec3f v = ADXL375_read();
+                printf("%s", "Enter file name: ");
+                scanf("%s", &workingFileName);
+                printf("%s\n", "recording...");
 
-                DataPoint dp;
-                dp.accelerationValue = v;
-                dp.time = getTime();
-                
-                /*if(length > 0)
+                pthread_create(&recordingThread, NULL, record, NULL);
+
+                for(uint16_t i = 0; i < length; i++)
                 {
-                    if(duplicateDataPoint(dp, data[length - 1]))
-                        addData(dp);
+                    printf("Time: %.3fs, Rate %.3f Hz, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, 1.0f / (data[i].time - data[i - 1].time), data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
                 }
-                else
-                {
-                    
-                }*/
-
-                addData(dp);
-
-                //usleep(10);
             }
-
-            for(uint16_t i = 0; i < length; i++)
+            else
             {
-                printf("Time: %.3fs, Rate %.3f Hz, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, 1.0f / (data[i].time - data[i - 1].time), data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+                printf("%s\n", "already busy recording!");
             }
         }
         else if(!strcmp(command, "stop-recording"))
         {
+            recording = false;
             printf("%s\n", "stopped recording.");
         }
         else if(!strcmp(command, "exit"))
         {
-            break;
+            if(recording)
+            {
+                printf("busy recording! cannot exit\n")
+            }
+            else
+            {
+                break;
+            }
         }
         else
         {
