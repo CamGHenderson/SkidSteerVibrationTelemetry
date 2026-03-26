@@ -87,7 +87,11 @@ int32_t main()
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
-                addData(ADXL375_read());
+                Vec3f v = ADXL375_read();
+
+                printf("X: %.3f, Y: %.3f, Z: %.3f\n", v.x, v.y, v.z);
+                
+                //addData();
                 usleep(100 * 1000);
             }
 
