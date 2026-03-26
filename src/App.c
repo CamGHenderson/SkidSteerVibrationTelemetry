@@ -120,7 +120,7 @@ int32_t main()
                 if(length > 0)
                 {
                     float delta = dp.time - data[length].time;
-                    printf("%f %f %f\n", delta, dp.time, data[length].time);
+                    //printf("%f %f %f\n", delta, dp.time, data[length].time);
                 }
                 float rate = 1.0f / delta;
 
@@ -132,7 +132,7 @@ int32_t main()
 
             for(uint16_t i = 0; i < length; i++)
             {
-                //printf("X: %.3f, Y: %.3f, Z: %.3f\n", data[i].x, data[i].y, data[i].z);
+                printf("X: %.3f, Y: %.3f, Z: %.3f\n", data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
