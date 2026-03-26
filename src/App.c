@@ -121,7 +121,7 @@ int32_t main()
                 if(length > 0)
                 {
                     float delta = dp.time - data[length - 1].time;
-                    printf(data[length - 1].time);
+                    printf("%f\n", data[length - 1].time);
                 }
                 float rate = 1.0f / delta;
 
