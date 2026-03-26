@@ -125,7 +125,7 @@ int32_t main()
                 Vec3f v = ADXL375_read();
 
                 DataPoint dp;
-                //dp.accelerationValue = v;
+                dp.accelerationValue = v;
                 dp.time = getTime();
 
                 /*float delta = 0.0f;
