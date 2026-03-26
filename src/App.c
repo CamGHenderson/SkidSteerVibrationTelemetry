@@ -6,12 +6,22 @@
 #include <string.h>
 #include <pigpio.h>
 #include <unistd.h>
-#include <glib.h>
 
 #include "ADXL375.h"
 #include "I2C_Device.h"
+#include "Vector.h"
 
 #define INDICATOR_LED 18
+
+Vec3f* data = NULL;
+uint32_t length = 0;
+
+void addData(Vec3f v)
+{
+    length++;
+    data = realloc(dat, sizeof(Vec3f) * length);
+    data[length - 1] = v;
+}
 
 void initializeMPU6050()
 {
@@ -77,11 +87,13 @@ int32_t main()
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
-                Vec3f v = ADXL375_read();
-
-
-
+                addData(ADXL375_read());
                 usleep(100 * 1000);
+            }
+
+            for(uint16_t i = 0; i < length; i++)
+            {
+                printf("X: %.3f, Y: %.3f, Z: %.3f\n", data[i].x, data[i].y, data[i].z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
