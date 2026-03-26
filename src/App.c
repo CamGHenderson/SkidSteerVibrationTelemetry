@@ -116,7 +116,11 @@ int32_t main()
                 dp.accelerationValue = v;
                 dp.time = getTime();
 
-                float delta = dp.time - data[length - 1].time;
+                float delta - 0.0f;
+                if(length > 0)
+                {
+                    float delta = dp.time - data[length - 1].time;
+                }
                 float rate = 1.0f / delta;
 
                 printf("Time: %.3f s, Delta: %.3f s, Rate: %.3f Hz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
