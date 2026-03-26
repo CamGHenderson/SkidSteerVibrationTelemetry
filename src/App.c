@@ -20,7 +20,7 @@ typedef struct
     float time;
 } DataPoint;
 
-DataPoint* data = NULL;
+DataPoint* data = malloc(sizeof(Vec3f) * 2E6);
 uint32_t length = 0;
 
 float initializationTime = 0.0f;
@@ -35,7 +35,7 @@ float getTime()
 void addData(DataPoint v)
 {
     length++;
-    data = realloc(data, sizeof(DataPoint) * length);
+    //data = realloc(data, sizeof(DataPoint) * length);
     data[length - 1] = v;
 }
 
