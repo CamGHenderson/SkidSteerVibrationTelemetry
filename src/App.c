@@ -115,18 +115,18 @@ int32_t main()
                 DataPoint dp;
                 dp.accelerationValue = v;
                 dp.time = getTime();
-                addData(dp);
 
                 float delta = 0.0f;
                 if(length > 0)
                 {
-                    float delta = dp.time - data[length - 1].time;
-                    printf("%f\n", data[length - 1].time);
+                    float delta = dp.time - data[length].time;
+                    printf("%f\n", delta);
                 }
                 float rate = 1.0f / delta;
 
                 //printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
                 
+                addData(dp);
                 usleep(100 * 1000);
             }
 
