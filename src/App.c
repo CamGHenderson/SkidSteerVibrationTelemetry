@@ -117,7 +117,7 @@ int32_t main()
                 dp.accelerationValue = v;
                 dp.time = getTime();
 
-                printf("Time: %,3f X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, v.x, v.y, v.z);
+                printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, v.x, v.y, v.z);
                 
                 addData(dp);
                 usleep(100 * 1000);
