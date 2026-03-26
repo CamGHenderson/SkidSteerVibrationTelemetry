@@ -122,7 +122,7 @@ int32_t main()
                 //printAccelerationData();
                 //Vec3f v = ADXL375_read();
 
-                //DataPoint dp;
+                DataPoint dp;
                 //dp.accelerationValue = v;
                 dp.time = getTime();
 
