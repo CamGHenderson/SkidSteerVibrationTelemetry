@@ -139,7 +139,7 @@ int32_t main()
                     if(!duplicateDataPoint(dp, data[length - 1]))
                     {
                         addData(dp);
-                        printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
+                        //printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
                     }
                 }
                 else
@@ -148,7 +148,7 @@ int32_t main()
 
             for(uint16_t i = 0; i < length; i++)
             {
-                //printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+                printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
