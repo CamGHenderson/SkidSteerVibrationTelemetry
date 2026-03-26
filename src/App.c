@@ -120,20 +120,11 @@ int32_t main()
 
             for(uint16_t i = 0; i < 1000; i++)
             {
-                //printf("X acceleration: %.3f\n", getAccelerationX());
-                //printAccelerationData();
                 Vec3f v = ADXL375_read();
 
                 DataPoint dp;
                 dp.accelerationValue = v;
                 dp.time = getTime();
-
-                /*float delta = 0.0f;
-                if(length > 0)
-                {
-                    delta = dp.time - data[length - 1].time;
-                }
-                float rate = 1.0f / delta;*/
                 
                 if(length > 0)
                 {
@@ -144,6 +135,8 @@ int32_t main()
                 {
                     addData(dp);
                 }
+
+                usleep(312);
             }
 
             for(uint16_t i = 0; i < length; i++)
