@@ -116,7 +116,7 @@ void writeDataToFile()
     FILE* file = fopen(workingFileName, "w");
     for(uint16_t i = 0; i < length; i++)
     {
-        printf("%.3f, %.3f, %.3f, %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+        fprintf(file, "%.3f, %.3f, %.3f, %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
     }
 
     fclose(file);
@@ -141,7 +141,7 @@ void* record()
     } 
 
     writeDataToFile();
-    
+
     pthread_exit(NULL);
 }
 
