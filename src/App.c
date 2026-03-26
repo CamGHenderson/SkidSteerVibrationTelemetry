@@ -29,8 +29,8 @@ float getTime()
 {
     struct timespec tms;
     timespec_get(&tms, TIME_UTC);
-    uint64_t currentTime = (tms.tv_sec * pow(10, 9)) + tms.tv_nsec;
-    return (((float)currentTime) / pow(10.0f, 9.0f)) - initializationTime;
+    uint64_t currentTime = (tms.tv_sec); // + tms.tv_nsec;
+    return (((float)currentTime)) - initializationTime;
 }
 
 void addData(DataPoint v)
