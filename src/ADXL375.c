@@ -90,10 +90,14 @@ Vec3f ADXL375_read()
     uint8_t data[6];
     i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
+    int16_t x16 = (data[0] | data[1] << 8);
+    int16_t y16 = (data[2] | data[3] << 8);
+    int16_t z16 = (data[4] | data[5] << 8);
+
     Vec3f v;
-    v.x = ((float)(data[0] | data[1] << 8)) * ADXL375_MG2G_MULTIPLIER;
-    v.y = ((float)(data[2] | data[3] << 8)) * ADXL375_MG2G_MULTIPLIER;
-    v.z = ((float)(data[4] | data[5] << 8)) * ADXL375_MG2G_MULTIPLIER;
+    v.x = ((float)x16) * ADXL375_MG2G_MULTIPLIER;
+    v.y = ((float)y16) * ADXL375_MG2G_MULTIPLIER;
+    v.z = ((float)z16) * ADXL375_MG2G_MULTIPLIER;
  
     return v;
 }
