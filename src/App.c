@@ -137,7 +137,7 @@ int32_t main()
                 
                 if(length > 0)
                 {
-                    if(duplicateDataPoint(d1, data[length - 1]))
+                    if(duplicateDataPoint(dp, data[length - 1]))
                         addData(dp);
                 }
                 else
