@@ -132,12 +132,18 @@ int32_t main()
                     delta = dp.time - data[length - 1].time;
                 }
                 float rate = 1.0f / delta;
-
-                printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
                 
+
                 if(length > 0)
+                {
                     if(!duplicateDataPoint(dp, data[length - 1]))
+                    {
                         addData(dp);
+                        printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
+                    }
+                }
+                else
+                    addData(dp);
             }
 
             for(uint16_t i = 0; i < length; i++)
