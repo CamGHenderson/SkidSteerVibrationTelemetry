@@ -88,7 +88,7 @@ void ADXL375_terminate()
 Vec3f ADXL375_read()
 {
     uint8_t data[6];
-    //i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
+    i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
 
     int16_t x16 = (data[0] | data[1] << 8);
     int16_t y16 = (data[2] | data[3] << 8);
