@@ -140,6 +140,8 @@ void* record()
         addData(dp);
     } 
 
+    writeDataToFile();
+    
     pthread_exit(NULL);
 }
 
