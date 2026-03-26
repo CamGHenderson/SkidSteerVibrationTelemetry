@@ -126,15 +126,17 @@ int32_t main()
                 dp.accelerationValue = v;
                 dp.time = getTime();
                 
-                if(length > 0)
+                /*if(length > 0)
                 {
                     if(duplicateDataPoint(dp, data[length - 1]))
                         addData(dp);
                 }
                 else
                 {
-                    addData(dp);
-                }
+                    
+                }*/
+
+                addData(dp);
 
                 usleep(312);
             }
