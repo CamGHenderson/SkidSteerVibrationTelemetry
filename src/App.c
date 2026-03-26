@@ -116,7 +116,7 @@ int32_t main()
                 dp.accelerationValue = v;
                 dp.time = getTime();
 
-                float delta - 0.0f;
+                float delta = 0.0f;
                 if(length > 0)
                 {
                     float delta = dp.time - data[length - 1].time;
