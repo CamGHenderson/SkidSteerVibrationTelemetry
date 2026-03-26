@@ -135,7 +135,15 @@ int32_t main()
                 }
                 float rate = 1.0f / delta;*/
                 
-                addData(dp);
+                if(length > 0)
+                {
+                    if(duplicateDataPoint(d1, data[length - 1]))
+                        addData(dp);
+                }
+                else
+                {
+                    addData(dp);
+                }
             }
 
             for(uint16_t i = 0; i < length; i++)
