@@ -57,7 +57,8 @@ bool duplicateDataPoint(DataPoint dp1, DataPoint dp2)
 
 void clearData()
 {
-
+    free(data);
+    data = malloc(sizeof(DataPoint) * 2E6);
 }
 
 void initializeMPU6050()
@@ -110,6 +111,20 @@ void terminate()
     printf("%s\n", "Telemetry Program Terminated.");
 }
 
+void writeDataToFile()
+{
+    FILE* file = fopen(workingFileName, "w");
+    for(uint16_t i = 0; i < length; i++)
+    {
+        printf("%.3f, %.3f, %.3f, %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+    }
+
+    fclose(file);
+    printf("%s %s\n", "Saved file: ", workingFileName);
+
+    clearData();
+}
+
 void* record()
 {
     recordStartTime = getTime();
@@ -145,13 +160,8 @@ int32_t main()
                 printf("%s", "Enter file name: ");
                 scanf("%s", &workingFileName);
                 printf("%s\n", "recording...");
-
+                
                 pthread_create(&recordingThread, NULL, record, NULL);
-
-                for(uint16_t i = 0; i < length; i++)
-                {
-                    printf("Time: %.3fs, Rate %.3f Hz, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, 1.0f / (data[i].time - data[i - 1].time), data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
-                }
             }
             else
             {
