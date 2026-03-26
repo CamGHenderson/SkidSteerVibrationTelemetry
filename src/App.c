@@ -19,7 +19,7 @@ uint32_t length = 0;
 void addData(Vec3f v)
 {
     length++;
-    data = realloc(dat, sizeof(Vec3f) * length);
+    data = realloc(data, sizeof(Vec3f) * length);
     data[length - 1] = v;
 }
 
