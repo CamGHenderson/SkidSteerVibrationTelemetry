@@ -90,7 +90,7 @@ void initialize()
     printf("%s\n", "Initialization Complete");
     printf("%s\n", "Telemetry Program on Standby.");
 
-    data = malloc(sizeof(Vec3f) * 2E6);
+    data = malloc(sizeof(DataPoint) * 2E6);
 }
 
 void terminate()
