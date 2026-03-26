@@ -29,7 +29,7 @@ float getTime()
 {
     timespec now;
     clock_gettime(CLOCK_MONOTONIC, &now);
-    return ((float)tend.tv_sec) + (float)(1.0E-9*tend.tv_nsec) - initializationTime;
+    return ((float)now.tv_sec) + (float)(1.0E-9*now.tv_nsec) - initializationTime;
 }
 
 void addData(DataPoint v)
