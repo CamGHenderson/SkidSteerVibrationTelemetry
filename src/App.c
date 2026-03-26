@@ -167,7 +167,7 @@ int32_t main()
         {
             if(recording)
             {
-                printf("busy recording! cannot exit\n")
+                printf("busy recording! cannot exit\n");
             }
             else
             {
