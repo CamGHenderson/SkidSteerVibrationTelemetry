@@ -28,7 +28,7 @@ float initializationTime = 0.0f;
 float getTime()
 {
     struct timespec tms;
-    timespec_get(&tms, TIME_UTC)
+    timespec_get(&tms, TIME_UTC);
     int64_t currentTimeMicro = tms.tv_sec * pow(10, 6);
     return ((float)(currentTimeMicro) / (float)(pow(10, 6))) - initializationTime;
 }
