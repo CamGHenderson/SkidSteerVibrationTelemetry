@@ -25,6 +25,10 @@
 #define DATAZ0 0x36
 #define DATAZ1 0x37
 
+#define OFFSETX 0x1E
+#define OFFSETY 0x1F
+#define OFFSETZ 0x20
+
 int8_t adxl375I2CAddresses[2] = { 0x53, 0x29 };
 int32_t adxlI2CHandles[2] = { 0, 0 };
 
@@ -36,6 +40,30 @@ void printBits(uint8_t num)
         printf("%u ", num & maxPow ? 1 : 0);
         num = num << 1;
     }
+}
+
+void ADXL375_calibrate()
+{
+    printf("calibrating all adxl375...");
+    
+    Vec3f ave;
+    for(uint16_t i = 0; i < 2000; i++)
+    {
+        Vec3f v = ADXL375_read();
+        ave.x += v.x;
+        ave.y += v.y;
+        ave.z += v.z;
+
+        usleep(1000);
+    }
+
+    ave.x = ave.x / 2000.0f;
+    ave.y = ave.y / 2000.0f;
+    ave.z = ave.z / 2000.0f;
+
+    // TODO: write offsets to registers
+
+    printf("calibrated all adxl375!");
 }
 
 void ADXL375_initialize()

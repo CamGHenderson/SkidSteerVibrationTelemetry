@@ -98,6 +98,11 @@ void initialize()
     printf("%s\n", "Telemetry Program on Standby.");
 
     data = malloc(sizeof(DataPoint) * 2E6);
+
+    sleep(1);
+
+    printf("%s\n", "ready to calibrate...");
+    printf("%s\n", "type \"calibrate\" when ready");
 }
 
 void terminate()
