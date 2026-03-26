@@ -39,6 +39,16 @@ void addData(DataPoint v)
     data[length - 1] = v;
 }
 
+bool duplicateDataPoint(DataPoint dp1, DataPoint dp2)
+{
+    if(dp1.accelerationValue.x == dp2.accelerationValue.x &&
+       dp1.accelerationValue.y == dp2.accelerationValue.y &&
+       dp1.accelerationValue.z == dp2.accelerationValue.z)
+       return true;
+
+    return false;
+}
+
 void clearData()
 {
 
@@ -106,7 +116,7 @@ int32_t main()
         {
             printf("%s\n", "recording...");
 
-            for(uint16_t i = 0; i < 100; i++)
+            for(uint16_t i = 0; i < 1000; i++)
             {
                 //printf("X acceleration: %.3f\n", getAccelerationX());
                 //printAccelerationData();
@@ -120,14 +130,14 @@ int32_t main()
                 if(length > 0)
                 {
                     delta = dp.time - data[length - 1].time;
-                    //printf("%f %f %f\n", delta, dp.time, data[length - 1].time);
                 }
                 float rate = 1.0f / delta;
 
                 printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
                 
-                addData(dp);
-                usleep(100 * 1000);
+                if(length > 0)
+                    if(!duplicateDataPoint(dp, data[length - 1]))
+                        addData(dp);
             }
 
             for(uint16_t i = 0; i < length; i++)
