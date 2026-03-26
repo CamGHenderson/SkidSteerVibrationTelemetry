@@ -148,7 +148,7 @@ int32_t main()
 
             for(uint16_t i = 0; i < length; i++)
             {
-                printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+                printf("Time: %.3fs, Rate %.3f Hz, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, 1.0f / (data[i].time - data[i - 1].time), data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
