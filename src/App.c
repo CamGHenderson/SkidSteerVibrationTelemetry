@@ -20,7 +20,7 @@ typedef struct
     float time;
 } DataPoint;
 
-DataPoint* data = malloc(sizeof(Vec3f) * 2E6);
+DataPoint* data;
 uint32_t length = 0;
 
 float initializationTime = 0.0f;
@@ -89,6 +89,8 @@ void initialize()
 
     printf("%s\n", "Initialization Complete");
     printf("%s\n", "Telemetry Program on Standby.");
+
+    data = malloc(sizeof(Vec3f) * 2E6);
 }
 
 void terminate()
