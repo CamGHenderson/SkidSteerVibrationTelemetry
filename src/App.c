@@ -119,12 +119,12 @@ int32_t main()
                 float delta = 0.0f;
                 if(length > 0)
                 {
-                    float delta = dp.time - data[length].time;
+                    float delta = dp.time - data[length - 1].time;
                     //printf("%f %f %f\n", delta, dp.time, data[length].time);
                 }
                 float rate = 1.0f / delta;
 
-                //printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
+                printf("Time: %.3fs, Delta: %.3fs, Rate: %.3fHz, X: %.3f, Y: %.3f, Z: %.3f\n", dp.time, delta, rate, v.x, v.y, v.z);
                 
                 addData(dp);
                 usleep(100 * 1000);
@@ -132,7 +132,7 @@ int32_t main()
 
             for(uint16_t i = 0; i < length; i++)
             {
-                printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+                //printf("Time: %.3f, X: %.3f, Y: %.3f, Z: %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
             }
         }
         else if(!strcmp(command, "stop-recording"))
