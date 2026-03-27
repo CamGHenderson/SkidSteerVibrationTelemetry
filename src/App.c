@@ -13,7 +13,8 @@
 #include "I2C_Device.h"
 #include "Vector.h"
 
-#define INDICATOR_LED 18
+#define STANDBY_LED 18
+#define RECORDING_LED 17
 
 typedef struct
 {
@@ -89,8 +90,10 @@ void initialize()
     printConnectedI2CDevices();
     initializeDevices();
 
-    gpioSetMode(INDICATOR_LED, PI_OUTPUT);
-    gpioWrite(INDICATOR_LED, 1);
+    gpioSetMode(STANDBY_LED, PI_OUTPUT);
+    gpioSetMode(RECORDING_LED, PI_OUTPUT);
+
+    gpioWrite(STANDBY_LED, 1);
 
     initializationTime = getTime();
 
@@ -111,7 +114,7 @@ void terminate()
     
     terminateDevices();
     
-    gpioWrite(INDICATOR_LED, 0);
+    gpioWrite(STANDBY_LED, 0);
     gpioTerminate();
     printf("%s\n", "Telemetry Program Terminated.");
 }
@@ -194,6 +197,15 @@ int32_t main()
         else
         {
             printf("%s\n", "unknown command try again.");
+        }
+
+        if(recording)
+        {
+            gpioWrite(RECORDING_LED, 1);
+        }
+        else
+        {
+            gpioWrite(RECORDING_LED, 0);
         }
     }
     
