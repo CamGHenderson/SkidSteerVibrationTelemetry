@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <pigpio.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #include "I2C_Device.h"
 
