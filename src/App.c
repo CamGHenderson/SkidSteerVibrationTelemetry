@@ -138,7 +138,7 @@ char* concat(const char *s1, const char *s2)
 
 void writeDataToFile()
 {
-    FILE* file = fopen(concat("data", workingFileName), "w");
+    FILE* file = fopen(concat("data/", workingFileName), "w");
     for(uint16_t i = 0; i < length; i++)
     {
         fprintf(file, "%.3f, ", data[i].time);
