@@ -46,7 +46,7 @@ void printBits(uint8_t num)
 
 void ADXL375_calibrate()
 {
-    printf("calibrating all adxl375...");
+    printf("calibrating all adxl375...\n");
     
     for(uint16_t s = 0; s < ADXL375_COUNT; s++)
     {

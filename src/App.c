@@ -183,6 +183,7 @@ int32_t main()
     while(true)
     {
         char command[50];
+
         printf("\n>> ");
         scanf("%s", &command);
 
