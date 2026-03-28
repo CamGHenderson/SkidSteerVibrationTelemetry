@@ -81,7 +81,7 @@ void ADXL375_initialize()
             printf("%s %i\n", "i2c opened on address: ", adxl375I2CAddresses[i]);
         }
 
-        adxl375I2CAddresses[i] = handle;
+        adxlI2CHandles[i] = handle;
 
         // bullshit config from stolen adafruit library
         i2cWriteByteData(handle, INT_ENABLE, 0);
