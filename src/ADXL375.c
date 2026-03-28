@@ -48,12 +48,12 @@ void ADXL375_calibrate()
 {
     printf("calibrating all adxl375...");
     
-    for(uint16_t i = 0; i < ADXL375_COUNT; i++)
+    for(uint16_t s = 0; s < ADXL375_COUNT; s++)
     {
         Vec3f ave;
         for(uint16_t i = 0; i < 2000; i++)
         {
-            Vec3f v = ADXL375_read();
+            Vec3f v = ADXL375_read(s);
             ave.x += v.x;
             ave.y += v.y;
             ave.z += v.z;

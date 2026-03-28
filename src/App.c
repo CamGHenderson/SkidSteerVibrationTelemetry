@@ -53,7 +53,7 @@ bool duplicateDataPoint(DataPoint dp1, DataPoint dp2)
     {
         if(dp1.accelerationValue[i].x != dp2.accelerationValue[i].x ||
             dp1.accelerationValue[i].y != dp2.accelerationValue[i].y ||
-            dp1.accelerationValuep[i].z != dp2.accelerationValue[i].z)
+            dp1.accelerationValue[i].z != dp2.accelerationValue[i].z)
         {
             test = false;
             break;
