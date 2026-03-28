@@ -51,9 +51,9 @@ bool duplicateDataPoint(DataPoint dp1, DataPoint dp2)
     bool test = true;
     for(uint16_t i = 0; i < ADXL375_COUNT; i++)
     {
-        if(dp1.accelerationValue.x != dp2.accelerationValue.x ||
-            dp1.accelerationValue.y != dp2.accelerationValue.y ||
-            dp1.accelerationValue.z != dp2.accelerationValue.z)
+        if(dp1.accelerationValue[i].x != dp2.accelerationValue[i].x ||
+            dp1.accelerationValue[i].y != dp2.accelerationValue[i].y ||
+            dp1.accelerationValuep[i].z != dp2.accelerationValue[i].z)
         {
             test = false;
             break;
@@ -134,8 +134,8 @@ void writeDataToFile()
     {
         fprintf(file, "%.3f", data[i].time);
 
-        for(uint16_t i = 0; i < ADXL375_COUNT; i++)
-            fprintf(file, "%.3f, %.3f, %.3f, ", data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+        for(uint16_t s = 0; s < ADXL375_COUNT; s++)
+            fprintf(file, "%.3f, %.3f, %.3f, ", data[i].accelerationValue[s].x, data[i].accelerationValue[s].y, data[i].accelerationValue[s].z);
 
         fprintf(file, "\n");
     }
