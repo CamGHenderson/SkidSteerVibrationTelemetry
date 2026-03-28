@@ -162,7 +162,7 @@ void* record()
     while(recording)
     {
         DataPoint dp;
-        dp.time = getTime();
+        dp.time = getTime() - recordStartTime;
         for(uint16_t i = 0; i < ADXL375_COUNT; i++)
         {
             Vec3f v = ADXL375_read(i);
