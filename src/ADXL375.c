@@ -30,8 +30,9 @@
 #define OFFSETY 0x1F
 #define OFFSETZ 0x20
 
-int8_t adxl375I2CAddresses[2] = { 0x53, 0x29 };
-int32_t adxlI2CHandles[2] = { 0, 0 };
+int8_t adxl375I2CAddresses[ADXL375_COUNT] = { 0x53, 0x1D, 0x29 };
+int32_t adxlI2CHandles[ADXL375_COUNT] = { 0, 0, 0 };
+Vec3f adxl375Offsets[ADXL375_COUNT];
 
 void printBits(uint8_t num)
 {
@@ -47,29 +48,32 @@ void ADXL375_calibrate()
 {
     printf("calibrating all adxl375...");
     
-    Vec3f ave;
-    for(uint16_t i = 0; i < 2000; i++)
+    for(uint16_t i = 0; i < ADXL375_COUNT; i++)
     {
-        Vec3f v = ADXL375_read();
-        ave.x += v.x;
-        ave.y += v.y;
-        ave.z += v.z;
+        Vec3f ave;
+        for(uint16_t i = 0; i < 2000; i++)
+        {
+            Vec3f v = ADXL375_read();
+            ave.x += v.x;
+            ave.y += v.y;
+            ave.z += v.z;
 
-        usleep(1000);
+            usleep(1000);
+        }
+
+        ave.x = ave.x / 2000.0f;
+        ave.y = ave.y / 2000.0f;
+        ave.z = ave.z / 2000.0f;
+
+        adxl375Offsets[i] = ave;
     }
-
-    ave.x = ave.x / 2000.0f;
-    ave.y = ave.y / 2000.0f;
-    ave.z = ave.z / 2000.0f;
-
-    // TODO: write offsets to registers
 
     printf("calibrated all adxl375!");
 }
 
 void ADXL375_initialize()
 {
-    for(uint16_t i = 0; i < 1; i++)
+    for(uint16_t i = 0; i < ADXL375_COUNT; i++)
     {
         int32_t handle = i2cOpen(I2C_BUS, adxl375I2CAddresses[i], 0);
         if(handle >= 0)
@@ -104,7 +108,7 @@ void ADXL375_initialize()
 
 void ADXL375_terminate()
 {
-    for(uint16_t i = 0; i < 1; i++)
+    for(uint16_t i = 0; i < ADXL375_COUNT; i++)
     {
         // put adxl into sleep mode
         i2cWriteByteData(adxlI2CHandles[i], POWER_CTL, 0x04);
@@ -114,19 +118,19 @@ void ADXL375_terminate()
     }
 }
 
-Vec3f ADXL375_read()
+Vec3f ADXL375_read(uint8_t sensorIndex)
 {
     uint8_t data[6];
-    i2cReadI2CBlockData(adxl375I2CAddresses[0], DATAX0, data, 6);
+    i2cReadI2CBlockData(adxl375I2CAddresses[sensorIndex], DATAX0, data, 6);
 
     int16_t x16 = (data[0] | data[1] << 8);
     int16_t y16 = (data[2] | data[3] << 8);
     int16_t z16 = (data[4] | data[5] << 8);
 
     Vec3f v;
-    v.x = ((float)x16) * ADXL375_MG2G_MULTIPLIER;
-    v.y = ((float)y16) * ADXL375_MG2G_MULTIPLIER;
-    v.z = ((float)z16) * ADXL375_MG2G_MULTIPLIER;
+    v.x = (((float)x16) * ADXL375_MG2G_MULTIPLIER) - adxl375Offsets[sensorIndex].x;
+    v.y = (((float)y16) * ADXL375_MG2G_MULTIPLIER) - adxl375Offsets[sensorIndex].y;
+    v.z = (((float)z16)) * ADXL375_MG2G_MULTIPLIER - adxl375Offsets[sensorIndex].z;
  
     return v;
 }

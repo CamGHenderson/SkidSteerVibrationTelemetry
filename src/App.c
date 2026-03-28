@@ -18,7 +18,7 @@
 
 typedef struct
 {
-    Vec3f accelerationValue;
+    Vec3f accelerationValue[ADXL375_COUNT];
     float time;
 } DataPoint;
 
@@ -48,18 +48,26 @@ void addData(DataPoint v)
 
 bool duplicateDataPoint(DataPoint dp1, DataPoint dp2)
 {
-    if(dp1.accelerationValue.x == dp2.accelerationValue.x &&
-       dp1.accelerationValue.y == dp2.accelerationValue.y &&
-       dp1.accelerationValue.z == dp2.accelerationValue.z)
-       return true;
+    bool test = true;
+    for(uint16_t i = 0; i < ADXL375_COUNT; i++)
+    {
+        if(dp1.accelerationValue.x != dp2.accelerationValue.x ||
+            dp1.accelerationValue.y != dp2.accelerationValue.y ||
+            dp1.accelerationValue.z != dp2.accelerationValue.z)
+        {
+            test = false;
+            break;
+        }
+    }
 
-    return false;
+    return test;
 }
 
 void clearData()
 {
     free(data);
     data = malloc(sizeof(DataPoint) * 2E6);
+    length = 0;
 }
 
 void initializeMPU6050()
@@ -124,7 +132,12 @@ void writeDataToFile()
     FILE* file = fopen(workingFileName, "w");
     for(uint16_t i = 0; i < length; i++)
     {
-        fprintf(file, "%.3f, %.3f, %.3f, %.3f\n", data[i].time, data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+        fprintf(file, "%.3f", data[i].time);
+
+        for(uint16_t i = 0; i < ADXL375_COUNT; i++)
+            fprintf(file, "%.3f, %.3f, %.3f, ", data[i].accelerationValue.x, data[i].accelerationValue.y, data[i].accelerationValue.z);
+
+        fprintf(file, "\n");
     }
 
     fclose(file);
@@ -139,17 +152,18 @@ void* record()
     recording = true;
     while(recording)
     {
-        Vec3f v = ADXL375_read();
-
         DataPoint dp;
-        dp.accelerationValue = v;
         dp.time = getTime();
+        for(uint16_t i = 0; i < ADXL375_COUNT; i++)
+        {
+            Vec3f v = ADXL375_read(i);
+            dp.accelerationValue[i] = v;
+        }
 
         addData(dp);
     } 
 
     writeDataToFile();
-
     pthread_exit(NULL);
 }
 
