@@ -65,7 +65,7 @@ void ADXL375_calibrate()
         ave.y = ave.y / 2000.0f;
         ave.z = ave.z / 2000.0f;
 
-        adxl375Offsets[i] = ave;
+        adxl375Offsets[s] = ave;
     }
 
     printf("calibrated all adxl375!");
