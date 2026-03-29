@@ -141,10 +141,10 @@ void writeDataToFile()
     FILE* file = fopen(concat("data/", workingFileName), "w");
     for(uint16_t i = 0; i < length; i++)
     {
-        fprintf(file, "%.3f, ", data[i].time);
+        fprintf(file, "%.5f, ", data[i].time);
 
         for(uint16_t s = 0; s < ADXL375_COUNT; s++)
-            fprintf(file, "%.3f, %.3f, %.3f, ", data[i].accelerationValue[s].x, data[i].accelerationValue[s].y, data[i].accelerationValue[s].z);
+            fprintf(file, "%.5f, %.5f, %.5f, ", data[i].accelerationValue[s].x, data[i].accelerationValue[s].y, data[i].accelerationValue[s].z);
 
         fprintf(file, "\n");
     }
