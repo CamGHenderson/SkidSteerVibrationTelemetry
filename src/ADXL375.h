@@ -2,7 +2,7 @@
 #include "Vector.h"
 #include <stdint.h>
 
-#define ADXL375_COUNT 3
+#define ADXL375_COUNT 2
 
 void ADXL375_initialize();
 void ADXL375_terminate();
