@@ -207,9 +207,11 @@ int32_t main()
             while(true)
             {
                 for(uint16_t s = 0; s < ADXL375_COUNT; s++)
+                {
                     Vec3f v = ADXL375_read(s);
                     printf("| %.5f, %.5f, %.5f |", v.x, v.y, v.z);
-                
+                }
+
                 printf("\n");
             }
         }
