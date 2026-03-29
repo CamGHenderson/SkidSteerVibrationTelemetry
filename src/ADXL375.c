@@ -136,7 +136,7 @@ Vec3f ADXL375_read(uint8_t sensorIndex)
     Vec3f v;
     v.x = (((float)x16) * ADXL375_MG2G_MULTIPLIER) - adxl375Offsets[sensorIndex].x;
     v.y = (((float)y16) * ADXL375_MG2G_MULTIPLIER) - adxl375Offsets[sensorIndex].y;
-    v.z = (((float)z16)) * ADXL375_MG2G_MULTIPLIER - adxl375Offsets[sensorIndex].z;
+    v.z = (((float)z16) * ADXL375_MG2G_MULTIPLIER) - adxl375Offsets[sensorIndex].z;
  
     return v;
 }
