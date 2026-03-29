@@ -98,7 +98,7 @@ void ADXL375_initialize()
         i2cWriteByteData(handle, POWER_CTL, 0x08);
 
         // set sample rate to 1600hz
-        i2cWriteByteData(handle, BW_RATE, 8);
+        i2cWriteByteData(handle, BW_RATE, 15);
 
         adxl375Offsets[i].x = 0.0f;
         adxl375Offsets[i].y = 0.0f;
