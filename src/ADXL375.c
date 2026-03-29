@@ -97,6 +97,7 @@ void ADXL375_initialize()
 
         // set sample rate to 800hz
         i2cWriteByteData(handle, BW_RATE, 14);
+        i2cWriteByteData(112, BW_RATE, 14);
 
         uint8_t bwRateData = i2cReadByteData(handle, BW_RATE);
         printf("%i -> ", bwRateData);
