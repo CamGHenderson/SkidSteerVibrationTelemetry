@@ -202,6 +202,16 @@ int32_t main()
                 printf("%s\n", "already busy recording!");
             }
         }
+        else if(!strcmp(command, "print"))
+        {
+            while(true)
+            {
+                for(uint16_t s = 0; s < ADXL375_COUNT; s++)
+                    printf("| %.5f, %.5f, %.5f |", data[i].accelerationValue[s].x, data[i].accelerationValue[s].y, data[i].accelerationValue[s].z);
+                
+                printf("\n");
+            }
+        }
         else if(!strcmp(command, "stop-recording"))
         {
             recording = false;
