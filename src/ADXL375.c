@@ -30,7 +30,7 @@
 #define OFFSETY 0x1F
 #define OFFSETZ 0x20
 
-int8_t adxl375I2CAddresses[ADXL375_COUNT] = { 0x53, 0x1D, 0x70 };
+int8_t adxl375I2CAddresses[ADXL375_COUNT] = { 0x53, 0x1D };
 int32_t adxlI2CHandles[ADXL375_COUNT] = { 0, 0, 0 };
 Vec3f adxl375Offsets[ADXL375_COUNT];
 
