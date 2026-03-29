@@ -208,7 +208,7 @@ int32_t main()
             {
                 DataPoint dp = ADXL375_read();
                 for(uint16_t s = 0; s < ADXL375_COUNT; s++)
-                    printf("| %.5f, %.5f, %.5f |", dp.accelerationValue[s].x, dp.accelerationValue[s].y, data.accelerationValue[s].z);
+                    printf("| %.5f, %.5f, %.5f |", dp.accelerationValue[s].x, dp.accelerationValue[s].y, dp.accelerationValue[s].z);
                 
                 printf("\n");
             }
