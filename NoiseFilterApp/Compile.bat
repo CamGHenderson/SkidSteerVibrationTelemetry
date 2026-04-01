@@ -1,0 +1,1 @@
+gcc src/App.c -o bin/App.exe
